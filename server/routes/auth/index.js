@@ -24,12 +24,22 @@ router.post("/register", async (req, res, next) => {
     const token = jwt.sign(
       { id: user.dataValues.id },
       process.env.SESSION_SECRET,
-      { expiresIn: 86400 }
+      { expiresIn: 86400*1000 }
     );
+
+    /*
+    * Stores jwt token in an httpOnly cookie
+    * */
+
+    res.cookie('messenger-token', token, {
+      maxAge: 86400*1000,
+      httpOnly: true
+    });
+
     res.json({
       ...user.dataValues,
-      token,
     });
+
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return res.status(401).json({ error: "User already exists" });
@@ -62,11 +72,16 @@ router.post("/login", async (req, res, next) => {
       const token = jwt.sign(
         { id: user.dataValues.id },
         process.env.SESSION_SECRET,
-        { expiresIn: 86400 }
+        { expiresIn: 86400*1000 }
       );
+
+      res.cookie('messenger-token', token, {
+        maxAge: 86400*1000,
+        httpOnly: true
+      });
+
       res.json({
         ...user.dataValues,
-        token,
       });
     }
   } catch (error) {
@@ -75,6 +90,14 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.delete("/logout", (req, res, next) => {
+  /*
+  * Expires the cookie
+  * */
+
+  res.cookie('messenger-token', '', {
+    httpOnly: true,
+    maxAge: 0,
+  })
   res.sendStatus(204);
 });
 

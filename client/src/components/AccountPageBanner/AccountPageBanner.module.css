@@ -1,0 +1,29 @@
+.accountPageBanner{
+    min-height: 100vh;
+    width: 100%;
+    background: url("../../assets/img/accountPageBanner-bg.png") center center no-repeat;
+    background-size: cover;
+}
+
+.overlay{
+    min-height: 100vh;
+    background: linear-gradient(to bottom, rgba(58, 141, 255, 0.85), rgba(134, 185, 255, 0.85));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15%;
+}
+
+.bannerIcon{
+    width: 67px;
+    height: 66px;
+    object-fit: cover;
+}
+
+.bannerTitle{
+    color: rgba(255, 255, 255, 1);
+    font-size: 1.63rem;
+    line-height: 40px;
+    text-align: center;
+}

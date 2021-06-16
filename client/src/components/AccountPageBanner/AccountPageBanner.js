@@ -1,17 +1,21 @@
 import styles from './AccountPageBanner.module.css';
-import chatBubble from '../../assets/svg/chat-bubble-filled.png';
+
+/*
+* Left sidebar of the Account (Login, Signup) pages
+* Takes icon and title as props
+* */
 
 const AccountPageBanner = ({icon, title}) => (
     <div className={styles.accountPageBanner}>
         <div className={styles.overlay}>
             <img
                 className={styles.bannerIcon}
-                src={chatBubble}
+                src={icon}
                 alt={'Banner icon'}
             />
 
             <p className={styles.bannerTitle}>
-                Converse with anyone with any language
+                {title}
             </p>
         </div>
     </div>

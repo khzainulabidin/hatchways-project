@@ -12,7 +12,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 15%;
+    padding: 0 18%;
 }
 
 .bannerIcon{
@@ -26,4 +26,14 @@
     font-size: 1.63rem;
     line-height: 40px;
     text-align: center;
+}
+
+/*
+    Styling for devices with screen width less than 768px
+*/
+
+@media all and (max-width: 768px) {
+    .accountPageBanner{
+        display: none;
+    }
 }

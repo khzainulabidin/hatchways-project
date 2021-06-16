@@ -2,5 +2,113 @@
     min-height: 100vh;
     width: 100%;
     display: grid;
-    grid-template-columns: 0.3fr 0.7fr;
+    grid-template-columns: 0.415fr 0.695fr;
+}
+
+.container{
+    padding: 3% 5%;
+}
+
+.alternateOptionContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.alternateOptionQuestion{
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.88rem;
+    margin-right: 3%;
+}
+
+.alternateOptionContainer button{
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 12px rgba(74, 106, 149, 0.2);
+    color: rgba(58, 141, 255, 1);
+    font-size: 0.88rem;
+    width: 170px;
+    height: 54px;
+}
+
+.alternateOptionContainer button:hover{
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 20px rgba(74, 106, 149, 0.2);
+}
+
+.content{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content h1{
+    font-size: 1.63rem;
+    margin: 0 0 5% 0;
+    text-align: left;
+}
+
+.content form{
+    width: 70%;
+    text-align: center;
+}
+
+.content form div{
+    margin-bottom: 2%;
+}
+
+.content form label{
+    margin: 0 0.5%;
+    font-size: 0.88rem;
+}
+
+.content form input{
+    font-size: 0.88rem;
+    padding: 2% 0.5% 1% 0.5%;
+}
+
+.content form button{
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 10%;
+    width: 160px;
+    height: 56px;
+}
+
+/*
+    Styling for devices with screen width less than 768px
+*/
+
+@media all and (max-width: 768px) {
+    .account{
+        grid-template-columns: 1fr;
+    }
+
+    .container{
+        padding: 3%;
+    }
+
+    .alternateOptionQuestion{
+        font-size: 0.78rem;
+    }
+
+    .alternateOptionContainer button{
+        width: fit-content;
+        height: 40px;
+    }
+
+    .content form{
+        width: 90%;
+    }
+
+    .content form button{
+        width: 120px;
+        height: 40px;
+        font-size: 0.88rem;
+    }
+
+    .content h1{
+        font-size: 1.3rem;
+    }
 }

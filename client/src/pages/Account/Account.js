@@ -1,6 +1,6 @@
 import styles from './Account.module.css';
 import AccountPageBanner from "../../components/AccountPageBanner/AccountPageBanner";
-import chatBubble from "../../assets/svg/chat-bubble-filled.png";
+import chatBubble from "../../assets/svg/bubble.svg";
 import {Button} from "@material-ui/core";
 
 /*

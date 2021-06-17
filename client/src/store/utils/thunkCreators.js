@@ -61,7 +61,7 @@ export const logout = (id) => async (dispatch) => {
 
 export const fetchConversations = () => async (dispatch) => {
   try {
-    let { data } = await axios.get("/api/conversations");
+    const { data } = await axios.get("/api/conversations");
 
     /*
     * Reverses the messages array

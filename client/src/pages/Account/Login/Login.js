@@ -3,7 +3,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../../store/utils/thunkCreators";
 import Account from "../Account";
-import {handleInput} from "../../../utils/misc";
+import handleInput from "../../../utils/handleInput";
 import {Button, FormControl, InputAdornment, Link, TextField} from "@material-ui/core";
 import useLoginStyles from "./Login.style";
 

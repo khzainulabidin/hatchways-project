@@ -3,6 +3,8 @@
 * Takes an object as update and setInputs function
 * */
 
-export const handleInput = (update, setInputs) => {
+const handleInput = (update, setInputs) => {
     return setInputs(prevState => ({ ...prevState, ...update }));
 }
+
+export default handleInput;

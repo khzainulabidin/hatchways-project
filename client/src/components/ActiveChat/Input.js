@@ -33,6 +33,15 @@ class Input extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+
+    /*
+    * Checks for empty messages
+    * */
+
+    if (event.target.text.value === ''){
+      return;
+    }
+
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
     const reqBody = {
       text: event.target.text.value,
@@ -44,11 +53,6 @@ class Input extends Component {
     this.setState({
       text: "",
     });
-
-    /*
-    * Smoothly scroll to the bottom of the page i.e to the latest message in the active chat
-    * */
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
   render() {

@@ -22,7 +22,6 @@ const styles = {
 class Chat extends Component {
   handleClick = async (conversation) => {
     await this.props.setActiveChat(conversation.otherUser.username);
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
   render() {

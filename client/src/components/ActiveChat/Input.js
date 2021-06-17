@@ -8,6 +8,7 @@ const styles = {
   root: {
     justifySelf: "flex-end",
     marginTop: 15,
+    marginBottom: 15
   },
   input: {
     height: 70,
@@ -46,7 +47,6 @@ class Input extends Component {
     const reqBody = {
       text: event.target.text.value,
       recipientId: this.props.otherUser.id,
-      conversationId: this.props.conversationId,
       sender: this.props.conversationId ? null : this.props.user,
     };
     await this.props.postMessage(reqBody);

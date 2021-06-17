@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import { login } from "../../../store/utils/thunkCreators";
 import Account from "../Account";
 import {handleInput} from "../../../utils/misc";
-import {Button, FormControl, TextField} from "@material-ui/core";
+import {Button, FormControl, InputAdornment, Link, TextField} from "@material-ui/core";
+import useLoginStyles from "./Login.style";
 
 const Login = (props) => {
+    const classes = useLoginStyles();
     const history = useHistory();
     const { user, login } = props;
 
@@ -56,6 +58,15 @@ const Login = (props) => {
                         name={"password"}
                         type={"password"}
                         inputProps={{ minLength: 6 }}
+                        InputProps={{ endAdornment: (
+                            <InputAdornment position="end">
+                                <Link
+                                    /*Path to be changed by forgot password page route path*/
+                                    onClick={() => history.push('/login')}
+                                    classes={{root: classes.forgotPasswordText}}
+                                >Forgot?</Link>
+                            </InputAdornment>
+                            )}}
                         value={inputs.password}
                         onChange={e => handleInput({ password: e.target.value }, setInputs)}
                         required

@@ -6,7 +6,7 @@ import Account from "../Account";
 import {handleInput} from "../../../utils/misc";
 import {Button, FormControl, TextField} from "@material-ui/core";
 
-const Login = (props) => {
+const Signup = (props) => {
     const history = useHistory();
     const { user, register } = props;
 
@@ -97,4 +97,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

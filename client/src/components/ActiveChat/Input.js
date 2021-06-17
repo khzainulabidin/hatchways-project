@@ -44,6 +44,11 @@ class Input extends Component {
     this.setState({
       text: "",
     });
+
+    /*
+    * Smoothly scroll to the bottom of the page i.e to the latest message in the active chat
+    * */
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
   render() {

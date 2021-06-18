@@ -47,11 +47,20 @@ export const login = (credentials) => async (dispatch) => {
   }
 };
 
+/*
+* Tells server to logout and inform other users that this user is no more online
+* Closes socket connection
+* Refreshes the page to make sure everything is cleaned up
+* */
+
 export const logout = (id) => async (dispatch) => {
   try {
     await axios.delete("/auth/logout");
     dispatch(gotUser({}));
-    socket.emit("logout", id);
+    socket.emit("logout", id, () => {
+      socket.disconnect();
+    });
+    window.location.reload();
   } catch (error) {
     console.error(error);
   }

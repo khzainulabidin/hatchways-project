@@ -3,7 +3,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { register } from "../../../store/utils/thunkCreators";
 import Account from "../Account";
-import handleInput from "../../../utils/handleInput";
+import { handleInput } from "../../../utils/misc";
 import {Button, FormControl, TextField} from "@material-ui/core";
 
 const Signup = (props) => {

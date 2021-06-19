@@ -35,17 +35,17 @@ class Search extends Component {
       <form onSubmit={this.handleSubmit}>
         <FormControl fullWidth hiddenLabel>
           <FilledInput
-            name="search"
-            onChange={this.props.handleChange}
-            classes={{ root: classes.filledInput, input: classes.input }}
-            disableUnderline
-            placeholder="Search"
-            startAdornment={
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            }
-          ></FilledInput>
+              name="search"
+              onChange={this.props.handleChange}
+              classes={{root: classes.filledInput, input: classes.input}}
+              disableUnderline
+              placeholder="Search"
+              startAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon/>
+                </InputAdornment>
+              }
+          />
         </FormControl>
       </form>
     );

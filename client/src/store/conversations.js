@@ -4,7 +4,6 @@ import {
   addSearchedUsersToStore,
   removeOfflineUserFromStore,
   addMessageToStore,
-  addPrevOnlineUsersToStore
 } from "./utils/reducerFunctions";
 
 // ACTIONS
@@ -16,7 +15,6 @@ const REMOVE_OFFLINE_USER = "REMOVE_OFFLINE_USER";
 const SET_SEARCHED_USERS = "SET_SEARCHED_USERS";
 const CLEAR_SEARCHED_USERS = "CLEAR_SEARCHED_USERS";
 const ADD_CONVERSATION = "ADD_CONVERSATION";
-const ADD_PREV_ONLINE_USERS = "ADD_PREV_ONLINE_USER";
 
 // ACTION CREATORS
 
@@ -61,13 +59,6 @@ export const clearSearchedUsers = () => {
   };
 };
 
-export const addPrevOnlineUsers = (users) => {
-  return {
-    type: ADD_PREV_ONLINE_USERS,
-    users,
-  };
-};
-
 // add new conversation when sending a new message
 export const addConversation = (recipientId, newMessage) => {
   return {
@@ -100,8 +91,6 @@ const reducer = (state = [], action) => {
         action.payload.recipientId,
         action.payload.newMessage
       );
-    case ADD_PREV_ONLINE_USERS:
-      return addPrevOnlineUsersToStore(state, action.users);
     default:
       return state;
   }

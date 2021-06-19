@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Box } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
 
 const Messages = (props) => {
   const { messages, otherUser, userId } = props;
+
+  useEffect(() => {
+    /*
+    * Smoothly scroll to the bottom of the page i.e to the latest message in the active chat
+    * */
+
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }, [props])
 
   return (
     <Box>

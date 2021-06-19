@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { User } = require("../../db/models");
-const jwt = require("jsonwebtoken");
+const signJWT = require('../../utils/signJWT');
 
 router.post("/register", async (req, res, next) => {
   try {
@@ -21,15 +21,23 @@ router.post("/register", async (req, res, next) => {
 
     const user = await User.create(req.body);
 
-    const token = jwt.sign(
-      { id: user.dataValues.id },
-      process.env.SESSION_SECRET,
-      { expiresIn: 86400 }
-    );
+    const token = signJWT(user.dataValues.id);
+
+    /*
+    * Stores jwt token in an httpOnly cookie
+    * Checks and uses JWT_EXPIRES_IN, if its available in .env file
+    * Default maxAge is 24 Hours
+    * */
+
+    res.cookie('messenger-token', token, {
+      maxAge: process.env.JWT_EXPIRES_IN && process.env.JWT_EXPIRES_IN*1000 || 86400*1000,
+      httpOnly: true
+    });
+
     res.json({
       ...user.dataValues,
-      token,
     });
+
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return res.status(401).json({ error: "User already exists" });
@@ -59,14 +67,15 @@ router.post("/login", async (req, res, next) => {
       console.log({ error: "Wrong username and/or password" });
       res.status(401).json({ error: "Wrong username and/or password" });
     } else {
-      const token = jwt.sign(
-        { id: user.dataValues.id },
-        process.env.SESSION_SECRET,
-        { expiresIn: 86400 }
-      );
+      const token = signJWT(user.dataValues.id);
+
+      res.cookie('messenger-token', token, {
+        maxAge: process.env.JWT_EXPIRES_IN && process.env.JWT_EXPIRES_IN*1000 || 86400*1000,
+        httpOnly: true
+      });
+
       res.json({
         ...user.dataValues,
-        token,
       });
     }
   } catch (error) {
@@ -75,6 +84,11 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.delete("/logout", (req, res, next) => {
+  /*
+  * Expires the cookie
+  * */
+
+  res.clearCookie('messenger-token');
   res.sendStatus(204);
 });
 

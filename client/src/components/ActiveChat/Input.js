@@ -35,10 +35,6 @@ class Input extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
-    /*
-    * Checks for empty messages
-    * */
-
     if (event.target.text.value === ''){
       return;
     }

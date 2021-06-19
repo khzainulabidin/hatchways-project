@@ -62,15 +62,6 @@ export const logout = (id) => async (dispatch) => {
 export const fetchConversations = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/api/conversations");
-
-    /*
-    * Reverses the messages array
-    * Latest message will be on the bottom
-    * Smooth scroll behaviour is implemented which automatically takes user to latest message i.e to the bottom of page -
-    * - on selecting chat from the sidebar and on sending a new message
-    * */
-
-    data.forEach(item => item.messages.reverse());
     dispatch(gotConversations(data));
   } catch (error) {
     console.error(error);

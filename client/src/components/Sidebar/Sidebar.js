@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { Search, Chat, CurrentUser } from "./index.js";
+//import {socketWrapper} from "../../utils/socket";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,8 +22,12 @@ const useStyles = makeStyles(() => ({
 
 const Sidebar = (props) => {
   const classes = useStyles();
-  const conversations = props.conversations || [];
+  const [conversations, setConversations] = useState([]);
   const { handleChange, searchTerm } = props;
+
+  useEffect(() => {
+    setConversations(props.conversations);
+  }, [props]);
 
   return (
     <Box className={classes.root}>

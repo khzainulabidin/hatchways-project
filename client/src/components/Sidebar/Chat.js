@@ -1,11 +1,13 @@
-import React, { Component } from "react";
-import { Box } from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {Box, Typography} from "@material-ui/core";
 import { BadgeAvatar, ChatContent } from "../Sidebar";
-import { withStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
+import axios from "axios";
+import {socketWrapper} from "../../utils/socket";
 
-const styles = {
+const useStyles = makeStyles(() => ({
   root: {
     borderRadius: 8,
     height: 80,
@@ -17,39 +19,76 @@ const styles = {
       cursor: "pointer",
     },
   },
-};
 
-class Chat extends Component {
-  handleClick = async (conversation) => {
-    await this.props.setActiveChat(conversation.otherUser.username);
+  notification: {
+    height: 20,
+    width: 20,
+    backgroundColor: "#3F92FF",
+    marginRight: 10,
+    color: "white",
+    fontSize: 10,
+    letterSpacing: -0.5,
+    fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
+}));
+
+const Chat = props => {
+  const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
+
+  const handleClick = async (conversation) => {
+    await props.setActiveChat(conversation.otherUser.username);
+    await axios.post("/api/messages/readConversation", {
+      otherUserId: conversation.otherUser.id,
+      conversationId: conversation.id
+    });
+    setUnreadMessagesCount(0);
   };
 
-  render() {
-    const { classes } = this.props;
-    const otherUser = this.props.conversation.otherUser;
-    return (
+  const classes = useStyles();
+  const otherUser = props.conversation.otherUser;
+
+  socketWrapper.socket.on('unread-message', message => {
+    if (message.conversationId === props.conversation.id){
+      const updatedCount = unreadMessagesCount+1;
+      setUnreadMessagesCount(updatedCount);
+    }
+  })
+
+  useEffect(() => {
+    setUnreadMessagesCount(props.conversation.noOfUnreadMessages);
+  }, [props]);
+
+  return (
       <Box
-        onClick={() => this.handleClick(this.props.conversation)}
-        className={classes.root}
+          onClick={() => handleClick(props.conversation)}
+          className={classes.root}
       >
         <BadgeAvatar
-          photoUrl={otherUser.photoUrl}
-          username={otherUser.username}
-          online={otherUser.online}
-          sidebar={true}
+            photoUrl={otherUser.photoUrl}
+            username={otherUser.username}
+            online={otherUser.online}
+            sidebar={true}
         />
-        <ChatContent conversation={this.props.conversation} />
+        <ChatContent conversation={props.conversation} unreadMessgesCount={unreadMessagesCount} />
+
+        {unreadMessagesCount > 0 &&
+        <Typography classes={{root: classes.notification}}>
+          {unreadMessagesCount}
+        </Typography>}
       </Box>
-    );
-  }
+  );
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setActiveChat: (id) => {
       dispatch(setActiveChat(id));
-    },
+    }
   };
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Chat));
+export default connect(null, mapDispatchToProps)(Chat);

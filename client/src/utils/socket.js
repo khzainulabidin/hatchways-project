@@ -12,7 +12,7 @@ export const socketWrapper = {
 
 const initializeSocket = user => {
   if (user){
-    socketWrapper.socket = io(process.env.REACT_APP_SERVER_ORIGIN);
+    socketWrapper.socket = io(process.env.REACT_APP_SERVER_ORIGIN, {withCredentials: true});
 
     socketWrapper.socket.on("connect", () => {
 

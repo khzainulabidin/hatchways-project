@@ -34,7 +34,7 @@ const ChatContent = (props) => {
   }, [props]);
 
   const { conversation } = props;
-  const { latestMessageText, otherUser } = conversation;
+  const { latestMessage: {text}, otherUser } = conversation;
 
   return (
     <Box className={classes.root}>
@@ -46,7 +46,7 @@ const ChatContent = (props) => {
             className={[classes.previewText, unreadMessages > 0 ? classes.unreadPreviewText : '']
                 .join(' ')}
         >
-          {latestMessageText}
+          {text}
         </Typography>
       </Box>
     </Box>

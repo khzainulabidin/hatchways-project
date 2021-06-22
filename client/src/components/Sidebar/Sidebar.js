@@ -3,7 +3,6 @@ import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { Search, Chat, CurrentUser } from "./index.js";
-//import {socketWrapper} from "../../utils/socket";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,7 +26,7 @@ const Sidebar = (props) => {
 
   useEffect(() => {
     setConversations(props.conversations);
-  }, [props]);
+  }, [props.conversations]);
 
   return (
     <Box className={classes.root}>

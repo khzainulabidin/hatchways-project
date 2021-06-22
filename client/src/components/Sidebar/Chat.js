@@ -5,7 +5,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
 import axios from "axios";
-import {socketWrapper} from "../../utils/socket";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -41,7 +40,7 @@ const Chat = props => {
 
   const handleClick = async (conversation) => {
     await props.setActiveChat(conversation.otherUser.username);
-    await axios.post("/api/messages/readConversation", {
+    await axios.put("/api/messages/read", {
       otherUserId: conversation.otherUser.id,
       conversationId: conversation.id
     });
@@ -51,16 +50,9 @@ const Chat = props => {
   const classes = useStyles();
   const otherUser = props.conversation.otherUser;
 
-  socketWrapper.socket.on('unread-message', message => {
-    if (message.conversationId === props.conversation.id){
-      const updatedCount = unreadMessagesCount+1;
-      setUnreadMessagesCount(updatedCount);
-    }
-  })
-
   useEffect(() => {
     setUnreadMessagesCount(props.conversation.noOfUnreadMessages);
-  }, [props]);
+  }, [props.conversation.noOfUnreadMessages]);
 
   return (
       <Box

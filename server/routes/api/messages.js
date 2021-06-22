@@ -45,23 +45,13 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.post('/readConversation', async (req, res, next) => {
+router.put('/read', async (req, res, next) => {
   const { otherUserId, conversationId } = req.body;
   const messages = await Message.update({hasRead: true}, {where: { conversationId, senderId: otherUserId, hasRead: false}});
 
   res.send({
     success: true,
     data: messages
-  });
-});
-
-router.post('/readMessage', async (req, res, next) => {
-  const { messageId } = req.body;
-  const message = await Message.update({hasRead: true}, {where: { id: messageId, hasRead: false}});
-
-  res.send({
-    success: true,
-    data: message
   });
 });
 

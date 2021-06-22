@@ -50,7 +50,6 @@ io.on("connect", (socket) => {
         message: data.message,
         sender: data.sender,
       });
-      socket.to(onlineUsers[data.recipientId]).emit("unread-message", data.message);
     }
   });
 

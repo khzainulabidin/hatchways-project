@@ -8,7 +8,7 @@ const useAccountPageBannerStyles = makeStyles(theme => ({
         background: `url(${banner_bg}) center center no-repeat`,
         backgroundSize: 'cover',
 
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
     },

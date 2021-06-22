@@ -1,36 +1,42 @@
-import styles from './Account.module.css';
 import AccountPageBanner from "../../components/AccountPageBanner/AccountPageBanner";
-import chatBubble from "../../assets/svg/chat-bubble-filled.png";
-import {Button} from "@material-ui/core";
+import chatBubble from "../../assets/svg/bubble.svg";
+import {Box, Button, Typography} from "@material-ui/core";
+import useAccountStyles from "./Account.style";
 
 /*
 * Account pages template. Reusable for pages like login, signup
 * */
 
 const Account = ({alternateQuestion, alternateActionText, alternateAction, ...props}) => {
+    const classes = useAccountStyles();
+
     return (
-        <div className={styles.account}>
+        <Box classes={{ root: classes.account }}>
             <AccountPageBanner
                 icon={chatBubble}
                 title={'Converse with anyone with any language'}
             />
 
-            <div className={styles.container}>
-                <div className={styles.alternateOptionContainer}>
-                    <p className={styles.alternateOptionQuestion}>
+            <Box classes={{ root: classes.container }}>
+                <Box classes={{ root: classes.alternateOptionContainer }}>
+                    <Typography classes={{ root: classes.alternateOptionQuestion }}>
                         {alternateQuestion}
-                    </p>
+                    </Typography>
 
-                    <Button variant={'contained'} onClick={alternateAction}>
+                    <Button
+                        variant={'contained'}
+                        onClick={alternateAction}
+                        classes={{ root: classes.alternateOptionButton }}
+                    >
                         {alternateActionText}
                     </Button>
-                </div>
+                </Box>
 
-                <div className={styles.content}>
+                <Box classes={{ root: classes.content }}>
                     {props.children}
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Box>
+        </Box>
     );
 }
 

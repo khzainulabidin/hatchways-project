@@ -12,7 +12,6 @@ const Login = (props) => {
     const history = useHistory();
     const { user, login } = props;
 
-    // State to store user input in the login form
     const [inputs, setInputs] = useState({
         username: '',
         password: '',

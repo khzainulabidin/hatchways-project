@@ -10,7 +10,6 @@ const Signup = (props) => {
     const history = useHistory();
     const { user, register } = props;
 
-    // State to store user input in the register form
     const [inputs, setInputs] = useState({
         username: '',
         email: '',

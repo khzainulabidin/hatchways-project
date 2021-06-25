@@ -31,10 +31,10 @@ const ChatContent = (props) => {
 
   useEffect(() => {
     setUnreadMessages(props.unreadMessgesCount);
-  }, [props]);
+  }, [props.unreadMessgesCount]);
 
   const { conversation } = props;
-  const { latestMessage: {text}, otherUser } = conversation;
+  const { latestMessage, otherUser } = conversation;
 
   return (
     <Box className={classes.root}>
@@ -46,7 +46,7 @@ const ChatContent = (props) => {
             className={[classes.previewText, unreadMessages > 0 ? classes.unreadPreviewText : '']
                 .join(' ')}
         >
-          {text}
+          {latestMessage.text}
         </Typography>
       </Box>
     </Box>

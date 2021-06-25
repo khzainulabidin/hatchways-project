@@ -37,8 +37,10 @@ const useStyles = makeStyles(() => ({
 
 const Chat = props => {
   const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
+  const [activeChatId, setActiveChatId] = useState('');
 
   const handleClick = async (conversation) => {
+    setActiveChatId(conversation.otherUser.username);
     await props.setActiveChat(conversation.otherUser.username);
     await axios.put("/api/messages/read", {
       otherUserId: conversation.otherUser.id,
@@ -51,7 +53,10 @@ const Chat = props => {
   const otherUser = props.conversation.otherUser;
 
   useEffect(() => {
-    setUnreadMessagesCount(props.conversation.noOfUnreadMessages);
+    if (props.conversation.otherUser.username !== activeChatId){
+      return setUnreadMessagesCount(props.conversation.noOfUnreadMessages);
+    }
+    setUnreadMessagesCount(0);
   }, [props.conversation.noOfUnreadMessages]);
 
   return (

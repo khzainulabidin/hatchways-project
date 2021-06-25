@@ -1,9 +1,10 @@
-import React from "react";
-import { Box } from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {Box, Typography} from "@material-ui/core";
 import { BadgeAvatar, ChatContent } from "../Sidebar";
 import {makeStyles} from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
+import axios from "axios";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -17,15 +18,46 @@ const useStyles = makeStyles(() => ({
       cursor: "pointer",
     },
   },
+
+  notification: {
+    height: 20,
+    width: 20,
+    backgroundColor: "#3F92FF",
+    marginRight: 10,
+    color: "white",
+    fontSize: 10,
+    letterSpacing: -0.5,
+    fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
 }));
 
 const Chat = props => {
+  const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
+  const [activeChatId, setActiveChatId] = useState('');
+
   const handleClick = async (conversation) => {
+    setActiveChatId(conversation.otherUser.username);
     await props.setActiveChat(conversation.otherUser.username);
+    await axios.put("/api/messages/read", {
+      otherUserId: conversation.otherUser.id,
+      conversationId: conversation.id
+    });
+    setUnreadMessagesCount(0);
   };
 
   const classes = useStyles();
   const otherUser = props.conversation.otherUser;
+
+  useEffect(() => {
+    if (props.conversation.otherUser.username !== activeChatId){
+      return setUnreadMessagesCount(props.conversation.noOfUnreadMessages);
+    }
+    setUnreadMessagesCount(0);
+  }, [props.conversation.noOfUnreadMessages]);
 
   return (
       <Box
@@ -38,7 +70,12 @@ const Chat = props => {
             online={otherUser.online}
             sidebar={true}
         />
-        <ChatContent conversation={props.conversation} />
+        <ChatContent conversation={props.conversation} unreadMessgesCount={unreadMessagesCount} />
+
+        {unreadMessagesCount > 0 &&
+        <Typography classes={{root: classes.notification}}>
+          {unreadMessagesCount}
+        </Typography>}
       </Box>
   );
 }
@@ -47,7 +84,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setActiveChat: (id) => {
       dispatch(setActiveChat(id));
-    },
+    }
   };
 };
 

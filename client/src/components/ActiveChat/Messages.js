@@ -1,18 +1,29 @@
 import React, {useEffect} from "react";
-import { Box } from "@material-ui/core";
+import {Avatar, Box} from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  readAvatarContainer: {
+    height: '50px',
+    display: "flex",
+    justifyContent: 'flex-end'
+  },
+  avatar: {
+    height: 20,
+    width: 20,
+    margin: '5px 0',
+  },
+}));
 
 const Messages = (props) => {
-  const { messages, otherUser, userId } = props;
+  const classes = useStyles();
+  const { messages, otherUser, userId, latestMessage } = props;
 
   useEffect(() => {
-    /*
-    * Smoothly scroll to the bottom of the page i.e to the latest message in the active chat
-    * */
-
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  }, [props])
+  }, [props]);
 
   return (
     <Box>
@@ -25,6 +36,10 @@ const Messages = (props) => {
           <OtherUserBubble key={message.id} text={message.text} time={time} otherUser={otherUser} />
         );
       })}
+
+      {latestMessage.senderId === userId && latestMessage.hasRead && <div className={classes.readAvatarContainer}>
+        <Avatar alt={otherUser.username} src={otherUser.photoUrl} className={classes.avatar}/>
+      </div>}
     </Box>
   );
 };

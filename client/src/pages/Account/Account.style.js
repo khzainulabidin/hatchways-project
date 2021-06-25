@@ -7,7 +7,7 @@ const useAccountStyles = makeStyles(theme => ({
         display: 'grid',
         gridTemplateColumns: '0.415fr 0.695fr',
 
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
             gridTemplateColumns: '1fr',
         },
     },
@@ -15,7 +15,7 @@ const useAccountStyles = makeStyles(theme => ({
     container: {
         padding: '3% 5%',
 
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
             padding: '3%',
         },
     },
@@ -31,7 +31,7 @@ const useAccountStyles = makeStyles(theme => ({
         fontSize: '0.88rem',
         marginRight: '3%',
 
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
             fontSize: '0.78rem',
         },
     },
@@ -49,7 +49,7 @@ const useAccountStyles = makeStyles(theme => ({
             boxShadow: '0 2px 20px rgba(74, 106, 149, 0.2)',
         },
 
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
             width: 'fit-content',
             height: '40px',
         },
@@ -68,7 +68,7 @@ const useAccountStyles = makeStyles(theme => ({
             margin: '0 0 5% 0',
             textAlign: 'left',
 
-            [theme.breakpoints.down('md')]: {
+            [theme.breakpoints.down('sm')]: {
                 fontSize: '1.3rem',
             },
         },
@@ -77,7 +77,7 @@ const useAccountStyles = makeStyles(theme => ({
             width: '70%',
             textAlign: 'center',
 
-            [theme.breakpoints.down('md')]: {
+            [theme.breakpoints.down('sm')]: {
                 width: '90%',
             },
 
@@ -102,7 +102,7 @@ const useAccountStyles = makeStyles(theme => ({
                 width: '160px',
                 height: '56px',
 
-                [theme.breakpoints.down('md')]: {
+                [theme.breakpoints.down('sm')]: {
                     width: '120px',
                     height: '40px',
                     fontSize: '0.88rem',
